@@ -1,11 +1,13 @@
 import type { NextPage } from 'next'
 import { useEffect } from 'react'
+import axios from 'axios'
 
 
 const Home: NextPage = () => {
   useEffect(() => {
     async function getPeople() {
-      fetch('http://www.localhost:8000/people/').then((res) => res.json).then((data) => console.log(data))
+      const response = await axios.get('http://www.localhost:8000/people/')
+      console.log(response)
     }
     getPeople()
   }, [])
