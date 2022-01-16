@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       console.log(response.data)
       setPeople(response.data)
     }
-    getPeople()
+    // getPeople()
   }, [])
 
   function displayUsers() {
@@ -40,14 +40,22 @@ const Home: NextPage = () => {
       </ul>
       <h3 className='underline'>Add a person</h3>
       <form onSubmit={handleOnClick}>
-        <label className='block' htmlFor='first_name'>First name:</label>
-        <input type="text" name="first_name" id="first_name" className=' block border-2 border-black rounded' />
-        <label className='block' htmlFor='last_name'>Last name:</label>
-        <input type="text" name="last_name" id="last_name" className=' block border-2 border-black rounded' />
-        <label className='block' htmlFor='date_of_birth'>Date of birth:</label>
-        <input type='date' name="date_of_birth" id="date_of_birth" className=' block border-2 border-black rounded' />
-        <label className='block' htmlFor='age'>Age:</label>
-        <input type='number' name="age" id="age" className=' block border-2 border-black rounded' />
+        <div className='flex flex-col mb-4'>
+          <label className='mb-2 uppercase font-bold text-lg text-grey-darkest' htmlFor='first_name'>First name:</label>
+          <input type="text" name="first_name" id="first_name" className='border py-2 px-3 text-grey-darkest' />
+        </div>
+        <div className='flex flex-col mb-4'>
+          <label className='mb-2 uppercase font-bold text-lg text-grey-darkest' htmlFor='last_name'>Last name:</label>
+          <input type="text" name="last_name" id="last_name" className='border py-2 px-3 text-grey-darkest' />
+        </div>
+        <div className='flex flex-col mb-4'>
+          <label className='mb-2 uppercase font-bold text-lg text-grey-darkest' htmlFor='date_of_birth'>Date of birth:</label>
+          <input type='date' name="date_of_birth" id="date_of_birth" className='border py-2 px-3 text-grey-darkest' />
+        </div>
+        <div className='flex flex-col mb-4'>
+          <label className='mb-2 uppercase font-bold text-lg text-grey-darkest' htmlFor='age'>Age:</label>
+          <input type='number' name="age" id="age" className='border py-2 px-3 text-grey-darkest' />
+        </div>
         <input className='h-12 px-6 m-2 text-lg text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800' type="submit" value="Add person" />
       </form>
     </div>
