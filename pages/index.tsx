@@ -23,13 +23,19 @@ const Home: NextPage = () => {
       console.log(response.data)
       setPeople(response.data)
     }
-    // getPeople()
+    getPeople()
   }, [])
 
   function displayUsers() {
     if (people.length > 0) {
       return people.map((person) => {
-        return <li className='list-disc' key={`${person.first_name} ${person.last_name}`}>{person.first_name}, {person.last_name}, was born on {person.date_of_birth} and is {person.age} years old.</li>
+        const { first_name, last_name, date_of_birth, age } = person
+        return (
+          <div key={`${first_name} ${last_name}`}>
+            <li>{first_name}, {last_name}, was born on {date_of_birth} and is {age} years old.</li>
+            <button onClick={() => handleDelete({ first_name, last_name })} className='text-black bg-red-500 hover:bg-red-700 rounded py-2 px-5 border'>Delete person</button>
+          </div>
+        )
       })
     } else {
       return <div>No people right now.</div>
@@ -51,10 +57,15 @@ const Home: NextPage = () => {
     setAge(0)
   }
 
+  const handleDelete = async (person: Partial<Person>) => {
+    const response = await axios.post('http://www.localhost:8000/people/', person)
+    console.log(response)
+  }
+
   return (
     <div className='container mx-auto px-4'>
       <h1 className="text-3xl font-bold underline">All people</h1>
-      <ul className='mb-8'>
+      <ul className='mb-8 list-disc list-inside'>
         {displayUsers()}
       </ul>
       <h3 className='underline'>Add a person</h3>
