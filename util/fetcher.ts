@@ -4,10 +4,14 @@ import useSWR from "swr";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export function useGetFetcher() {
-  const { data, error } = useSWR("http://www.localhost:8000/people/", fetcher);
+  const { data, error, mutate } = useSWR(
+    "http://www.localhost:8000/people/",
+    fetcher
+  );
   return {
     people: data,
     isLoading: !error && !data,
     isError: error,
+    mutate,
   };
 }

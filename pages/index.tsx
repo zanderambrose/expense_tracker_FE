@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   const [lastName, setLastName] = useState<string>('')
   const [dateOfBirth, setDateOfBirth] = useState<string>('')
   const [age, setAge] = useState<number>(0)
-  const { people, isLoading, isError } = useGetFetcher()
+  const { people, isLoading, isError, mutate } = useGetFetcher()
 
   function displayUsers() {
     if (people && people.length > 0) {
@@ -29,7 +29,7 @@ const Home: NextPage = () => {
     }
   }
 
-  const handleOnClick = async (e: any) => {
+  const handleOnSubmit = async (e: any) => {
     e.preventDefault()
     const response = await axios.post('http://www.localhost:8000/people/', {
       firstName,
@@ -42,11 +42,13 @@ const Home: NextPage = () => {
     setLastName('')
     setDateOfBirth('')
     setAge(0)
+    mutate()
   }
 
   const handleDelete = async (personId: number) => {
     const response = await axios.delete(`http://www.localhost:8000/people/${personId}`)
     console.log(response)
+    mutate()
   }
 
   return (
@@ -56,7 +58,7 @@ const Home: NextPage = () => {
         {displayUsers()}
       </ul>
       <h3 className='underline'>Add a person</h3>
-      <form onSubmit={handleOnClick}>
+      <form onSubmit={handleOnSubmit}>
         <div className='flex flex-col mb-4'>
           <label className='mb-2 uppercase font-bold text-lg text-grey-darkest' htmlFor='first_name'>First name:</label>
           <input value={firstName} onChange={(e) => setFirstName(e.target.value)} type="text" name="first_name" id="first_name" className='border py-2 px-3 text-grey-darkest' />
