@@ -1,35 +1,19 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
-type Person = {
-  first_name: string,
-  last_name: string,
-  age: number,
-  date_of_birth: string,
-  id: number
-}
+import { useGetFetcher } from '../util/fetcher'
+import { Person } from '../types'
 
 const Home: NextPage = () => {
-  const [people, setPeople] = useState<Array<Person>>([])
-
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
   const [dateOfBirth, setDateOfBirth] = useState<string>('')
   const [age, setAge] = useState<number>(0)
-
-  useEffect(() => {
-    async function getPeople() {
-      const response = await axios.get('http://www.localhost:8000/people/')
-      console.log(response.data)
-      setPeople(response.data)
-    }
-    getPeople()
-  }, [])
+  const { people, isLoading, isError } = useGetFetcher()
 
   function displayUsers() {
-    if (people.length > 0) {
-      return people.map((person) => {
+    if (people && people.length > 0) {
+      return people.map((person: Person) => {
         const { first_name, last_name, date_of_birth, age, id } = person
         return (
           <div key={`${first_name} ${last_name}`}>
@@ -38,8 +22,10 @@ const Home: NextPage = () => {
           </div>
         )
       })
-    } else {
+    } if (isError) {
       return <div>No people right now.</div>
+    } else if (isLoading) {
+      return <div>Loading...</div>
     }
   }
 
