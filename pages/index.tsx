@@ -22,9 +22,13 @@ const Home: NextPage = () => {
   }, [])
 
   function displayUsers() {
-    return people.map((person) => {
-      return <li className='list-disc' key={`${person.first_name} ${person.last_name}`}>{person.first_name}, {person.last_name}, was born on {person.date_of_birth} and is {person.age} years old.</li>
-    })
+    if (people.length > 0) {
+      return people.map((person) => {
+        return <li className='list-disc' key={`${person.first_name} ${person.last_name}`}>{person.first_name}, {person.last_name}, was born on {person.date_of_birth} and is {person.age} years old.</li>
+      })
+    } else {
+      return <div>No people right now.</div>
+    }
   }
 
   const handleOnClick = (e: React.SyntheticEvent) => {
