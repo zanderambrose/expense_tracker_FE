@@ -6,7 +6,8 @@ type Person = {
   first_name: string,
   last_name: string,
   age: number,
-  date_of_birth: string
+  date_of_birth: string,
+  id: number
 }
 
 const Home: NextPage = () => {
@@ -29,11 +30,11 @@ const Home: NextPage = () => {
   function displayUsers() {
     if (people.length > 0) {
       return people.map((person) => {
-        const { first_name, last_name, date_of_birth, age } = person
+        const { first_name, last_name, date_of_birth, age, id } = person
         return (
           <div key={`${first_name} ${last_name}`}>
             <li>{first_name}, {last_name}, was born on {date_of_birth} and is {age} years old.</li>
-            <button onClick={() => handleDelete({ first_name, last_name })} className='text-black bg-red-500 hover:bg-red-700 rounded py-2 px-5 border'>Delete person</button>
+            <button onClick={() => handleDelete(id)} className='text-black bg-red-500 hover:bg-red-700 rounded py-2 px-5 border'>Delete person</button>
           </div>
         )
       })
@@ -57,8 +58,8 @@ const Home: NextPage = () => {
     setAge(0)
   }
 
-  const handleDelete = async (person: Partial<Person>) => {
-    const response = await axios.post('http://www.localhost:8000/people/', person)
+  const handleDelete = async (personId: number) => {
+    const response = await axios.delete(`http://www.localhost:8000/people/${personId}`)
     console.log(response)
   }
 
