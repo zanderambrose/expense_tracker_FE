@@ -57,7 +57,7 @@ const Home: NextPage = () => {
       <ul className='mb-8 list-disc list-inside'>
         {displayUsers()}
       </ul>
-      <h3 className='underline'>Add a person</h3>
+      <h3 className='underline text-4xl mb-4'>Add a person</h3>
       <form onSubmit={handleOnSubmit}>
         <div className='flex flex-col mb-4'>
           <label className='mb-2 uppercase font-bold text-lg text-grey-darkest' htmlFor='first_name'>First name:</label>
