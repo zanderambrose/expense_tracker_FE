@@ -1,12 +1,20 @@
-FROM node:12.18.1
+FROM node:14
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
+# Installing dependencies
 COPY ["package.json", "package-lock.json", "./"]
 
-RUN npm install 
+RUN npm install
 
+# Copying source files
 COPY . .
 
-CMD [ "npm", "run", "start" ]
+# Building app
+RUN npm run build
+EXPOSE 5000
+
+# Running the app
+CMD ["npm", "run", "dev"]
+
 
