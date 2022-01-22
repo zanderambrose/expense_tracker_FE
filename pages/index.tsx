@@ -31,7 +31,7 @@ const Home: NextPage = () => {
 
   const handleOnSubmit = async (e: any) => {
     e.preventDefault()
-    const response = await axios.post('http://www.localhost:8000/people/', {
+    const response = await axios.post('http://www.localhost:8001/people/', {
       firstName,
       lastName,
       dateOfBirth,
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
   }
 
   const handleDelete = async (personId: number) => {
-    const response = await axios.delete(`http://www.localhost:8000/people/${personId}`)
+    const response = await axios.delete(`http://www.localhost:8001/people/${personId}`)
     console.log(response)
     mutate()
   }

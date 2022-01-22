@@ -5,7 +5,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export function useGetFetcher() {
   const { data, error, mutate } = useSWR(
-    "http://www.localhost:8000/people/",
+    "http://www.localhost:8001/people/",
     fetcher
   );
   return {
