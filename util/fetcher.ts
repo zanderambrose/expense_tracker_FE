@@ -5,7 +5,8 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export function useGetFetcher() {
   const { data, error, mutate } = useSWR(
-    "http://www.localhost:8001/people/",
+    // "http://www.localhost:8001/people/",
+    `${process.env.EXPENSE_API}/people/`,
     fetcher
   );
   return {
